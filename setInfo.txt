@@ -1,0 +1,6 @@
+ten:1
+tuoi:2
+email:1
+skype:2
+diachi:1
+noilamviec:2
