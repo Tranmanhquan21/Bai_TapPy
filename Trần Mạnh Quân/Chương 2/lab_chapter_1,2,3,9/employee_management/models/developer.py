@@ -1,8 +1,8 @@
 from .employee import Employee
 
 class Developer(Employee):
-    def __init__(self, emp_id, name, age, base_salary, programming_language):
-        super().__init__(emp_id, name, age, base_salary)
+    def __init__(self, emp_id, name, age, base_salary, programming_language, tenure_months=12):
+        super().__init__(emp_id, name, age, base_salary, tenure_months)
         self._programming_language = programming_language
 
     @property

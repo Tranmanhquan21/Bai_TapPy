@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
 
 class Employee(ABC):
-    def __init__(self, emp_id, name, age, base_salary):
+    def __init__(self, emp_id, name, age, base_salary, tenure_months=12):
         self._emp_id = emp_id
         self._name = name
         self._age = age
         self._base_salary = base_salary
+        self._tenure_months = max(1, int(tenure_months))
         self._performance_score = 0.0
         self._projects = []
 
@@ -24,6 +25,10 @@ class Employee(ABC):
     @base_salary.setter
     def base_salary(self, value):
         self._base_salary = value
+
+    @property
+    def tenure_months(self):
+        return self._tenure_months
 
     @property
     def performance_score(self): return self._performance_score

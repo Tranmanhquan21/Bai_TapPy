@@ -1,56 +1,81 @@
-# MÔ TẢ BÀI TOÁN: HỆ THỐNG QUẢN LÝ NHÂN VIÊN CÔNG TY ABC
+# Hệ thống quản lý nhân viên — Công ty ABC
 
-## 1. Tổng quan
-Xây dựng một hệ thống quản lý nhân viên (Employee Management System) nhằm tối ưu hóa việc theo dõi thông tin, tính lương, phân công công việc và đánh giá hiệu suất của nhân sự trong công ty. Hệ thống được thiết kế theo mô hình hướng đối tượng (OOP) và cấu trúc module hóa để dễ dàng bảo trì và mở rộng.
+Ứng dụng desktop quản lý nhân sự: thêm/sửa thông tin, tính lương theo loại nhân viên và hiệu suất, phân công dự án, thống kê. Xây dựng bằng **Python 3.8+**, giao diện **Tkinter** (thư viện chuẩn), mô hình **OOP** (kế thừa, đa hình, ngoại lệ tùy chỉnh).
 
-## 2. Các chức năng chính
+## Tổng quan
 
-### 2.1. Quản lý thông tin nhân viên
-*   **Thêm nhân viên mới**: Cho phép thêm các loại nhân viên khác nhau:
-    *   **Manager (Quản lý)**: Có thêm thông tin về số lượng nhân viên dưới quyền.
-    *   **Developer (Lập trình viên)**: Có thêm thông tin về ngôn ngữ lập trình sử dụng.
-    *   **Intern (Thực tập sinh)**: Có thông tin về chuyên ngành và thời gian thực tập.
-*   **Hiển thị danh sách**:
-    *   Xem tất cả nhân viên.
-    *   Lọc theo loại nhân viên.
-    *   Sắp xếp theo hiệu suất làm việc (từ cao đến thấp).
-*   **Tìm kiếm**:
-    *   Tìm kiếm theo ID hoặc Tên.
-    *   Tìm kiếm Developer theo ngôn ngữ lập trình.
+| Hạng mục | Nội dung |
+|----------|----------|
+| Giao diện | Cửa sổ với các tab chức năng |
+| Dữ liệu | Lưu trong bộ nhớ khi chạy; có **dữ liệu mẫu** khi khởi động |
+| Phụ thuộc | Không cần `pip install` thêm (chỉ Python + Tkinter) |
 
-### 2.2. Tính lương và Thống kê
-*   **Tính lương**: Tính toán lương cho từng cá nhân và tổng lương toàn công ty dựa trên chức vụ và hiệu suất.
-*   **Vinh danh**: Hiển thị Top 3 nhân viên có mức lương cao nhất.
-*   **Thống kê**:
-    *   Số lượng nhân viên theo từng loại.
-    *   Tổng quỹ lương theo từng phòng ban.
-    *   Số dự án trung bình mỗi nhân viên tham gia.
+## Chức năng trong ứng dụng
 
-### 2.3. Quản lý Dự án và Hiệu suất
-*   **Dự án**:
-    *   Phân công nhân viên vào các dự án cụ thể.
-    *   Xóa nhân viên khỏi dự án.
-    *   Xem danh sách dự án của một nhân viên.
-*   **Hiệu suất**:
-    *   Cập nhật điểm hiệu suất cho nhân viên (thang điểm 10).
-    *   Phân loại nhân viên xuất sắc (điểm > 8) và nhân viên cần cải thiện (điểm < 5).
+1. **Thêm nhân viên** — Chọn loại: Manager (quy mô team), Developer (ngôn ngữ), Intern (chuyên ngành); kiểm tra tuổi và lương cơ bản.
+2. **Danh sách** — Bảng nhân viên; lọc theo loại hoặc sắp xếp theo điểm hiệu suất (cao → thấp).
+3. **Tìm kiếm** — Theo mã ID hoặc theo tên (chuỗi con).
+4. **Lương & thống kê** — Tổng quỹ lương, top 3 lương cao, báo cáo chi tiết và trung bình số dự án trên mỗi người (`Payroll`).
+5. **Hiệu suất & dự án** — Cập nhật điểm 0–10; gán / gỡ dự án (tối đa 5 dự án/người); xem danh sách dự án theo nhân viên.
+6. **Xóa nhân viên** — Có xác nhận trước khi xóa.
 
-### 2.4. Quản lý Nhân sự nâng cao
-*   Xóa nhân viên khi họ nghỉ việc.
-*   Tăng lương cơ bản cho nhân viên.
-*   Thăng chức cho nhân viên (Intern -> Developer -> Manager).
+**Dữ liệu mẫu:** file `sample_data.py` nạp sẵn một số Manager, Developer, Intern kèm điểm hiệu suất và vài dự án (chỉ khi danh sách đang trống).
 
-## 3. Cấu trúc Project (Dự kiến)
-Hệ thống sẽ được tổ chức theo cấu trúc package:
-*   `main.py`: Chương trình chính, hiển thị menu tương tác.
-*   `models/`: Chứa các lớp `Employee` (lớp cơ sở), `Manager`, `Developer`, `Intern`.
-*   `services/`: Chứa logic nghiệp vụ (`Company` quản lý danh sách, `Payroll` xử lý lương).
-*   `utils/`: Chứa các công cụ hỗ trợ (`Validators` kiểm tra dữ liệu, `Formatters` định dạng hiển thị).
-*   `exceptions/`: Định nghĩa các ngoại lệ tùy chỉnh.
+## Cấu trúc thư mục
 
-## 4. Xử lý lỗi đầu vào (Exception Handling)
-Hệ thống cần xử lý các trường hợp ngoại lệ để đảm bảo tính ổn định:
-*   **Dữ liệu cá nhân**: Tuổi không hợp lệ (ngoài 18-65), Lương <= 0, Email sai định dạng.
-*   **Quản lý ID**: ID không tồn tại hoặc ID bị trùng lặp khi thêm mới.
-*   **Ràng buộc nghiệp vụ**: Nhân viên đã tham gia tối đa 5 dự án, cập nhật điểm ngoài khoảng 0-10.
-*   **Trạng thái hệ thống**: Truy cập danh sách rỗng, nhập sai lựa chọn menu.
+```
+lab_chapter_1,2,3,9/
+└── employee_management/
+    ├── main.py                 # Giao diện Tkinter + điểm vào chương trình
+    ├── sample_data.py          # Dữ liệu mẫu (seed)
+    ├── models/
+    │   ├── employee.py         # Lớp cơ sở (abstract)
+    │   ├── manager.py
+    │   ├── developer.py
+    │   └── intern.py
+    ├── services/
+    │   ├── company.py          # Danh sách, tìm kiếm, tổng lương, top 3, …
+    │   └── payroll.py          # Báo cáo lương, trung bình dự án
+    ├── utils/
+    │   ├── validators.py       # Tuổi, lương, email (regex)
+    │   └── formatters.py       # Định dạng tiền tệ, tiêu đề
+    └── exceptions/
+        └── employee_exceptions.py
+```
+
+## Cách chạy
+
+Trong thư mục `employee_management`:
+
+```bash
+cd employee_management
+python main.py
+```
+
+Đóng cửa sổ để thoát chương trình.
+
+## Quy tắc nghiệp vụ & lỗi thường gặp
+
+| Nội dung | Chi tiết |
+|----------|----------|
+| Tuổi | Từ 18 đến 65 (`InvalidAgeError`) |
+| Lương cơ bản | Phải là số dương (`InvalidSalaryError`) |
+| Điểm hiệu suất | 0–10; ngoài khoảng sẽ báo lỗi khi gán |
+| Dự án | Tối đa 5 dự án mỗi người (`ProjectAllocationError`) |
+| ID trùng | Không cho thêm ID đã tồn tại (`DuplicateEmployeeError`) |
+| Không tìm thấy | ID hoặc tên không khớp (`EmployeeNotFoundError`) |
+
+Thông báo lỗi khi thao tác trên GUI hiển thị qua hộp thoại (`messagebox`).
+
+## OOP trong project
+
+- **Kế thừa:** `Employee` → `Manager`, `Developer`, `Intern`
+- **Đa hình:** `calculate_salary()` triển khai khác nhau theo lớp
+- **Trừu tượng:** phương thức trừu tượng trên lớp cơ sở
+- **Đóng gói:** thuộc tính và truy cập qua property/setter phù hợp
+
+## Tác giả & giấy phép
+
+**Tác giả:** Trần Mạnh Quân  
+
+MIT License — tự do sử dụng và chỉnh sửa.

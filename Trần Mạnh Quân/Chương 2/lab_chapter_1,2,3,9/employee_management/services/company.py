@@ -1,10 +1,12 @@
-from models.employee import Employee
+from datetime import datetime
+
 from exceptions.employee_exceptions import EmployeeNotFoundError, DuplicateEmployeeError
 
 class Company:
     def __init__(self, name="Công ty ABC"):
         self.name = name
-        self.employees = {} # emp_id -> Employee object
+        self.employees = {}  # emp_id -> Employee object
+        self.resignation_log = []  # danh sách {emp_id, name, severance, date}
 
     def add_employee(self, employee):
         if employee.emp_id in self.employees:
@@ -41,3 +43,42 @@ class Company:
 
     def get_top_3_salaries(self):
         return sorted(self.employees.values(), key=lambda x: x.calculate_salary(), reverse=True)[:3]
+
+    def get_employees_sorted_by_project_count(self):
+        """Sắp xếp nhân viên theo số dự án giảm dần; nếu bằng nhau thì theo tên."""
+        return sorted(
+            self.employees.values(),
+            key=lambda e: (-len(e.projects), e.name.lower(), e.emp_id),
+        )
+
+    def resign_with_severance(self, emp_id):
+        """
+        Tính đền bù hợp đồng, ghi log, xóa nhân viên khỏi hệ thống.
+        Trả về số tiền đền bù (float).
+        """
+        from services.compensation import Compensation
+
+        emp = self.find_employee_by_id(emp_id)
+        amount = Compensation.calculate_contract_severance(emp)
+        record = {
+            "emp_id": emp_id,
+            "name": emp.name,
+            "severance": amount,
+            "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        }
+        self.remove_employee(emp_id)
+        self.resignation_log.append(record)
+        return amount
+
+    def get_projects_with_members(self):
+        """
+        Gom theo tên dự án: mỗi dự án có danh sách nhân viên đang tham gia.
+        Trả về dict: tên dự án -> list Employee (đã sắp xếp theo tên, mã).
+        """
+        roster = {}
+        for emp in self.employees.values():
+            for project_name in emp.projects:
+                roster.setdefault(project_name, []).append(emp)
+        for members in roster.values():
+            members.sort(key=lambda e: (e.name.lower(), e.emp_id))
+        return {name: roster[name] for name in sorted(roster.keys(), key=lambda s: s.lower())}

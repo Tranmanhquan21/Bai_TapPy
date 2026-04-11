@@ -1,8 +1,8 @@
 from .employee import Employee
 
 class Intern(Employee):
-    def __init__(self, emp_id, name, age, base_salary, major):
-        super().__init__(emp_id, name, age, base_salary)
+    def __init__(self, emp_id, name, age, base_salary, major, tenure_months=12):
+        super().__init__(emp_id, name, age, base_salary, tenure_months)
         self._major = major
 
     @property

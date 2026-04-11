@@ -1,8 +1,8 @@
 from .employee import Employee
 
 class Manager(Employee):
-    def __init__(self, emp_id, name, age, base_salary, team_size):
-        super().__init__(emp_id, name, age, base_salary)
+    def __init__(self, emp_id, name, age, base_salary, team_size, tenure_months=12):
+        super().__init__(emp_id, name, age, base_salary, tenure_months)
         self._team_size = team_size
 
     @property
