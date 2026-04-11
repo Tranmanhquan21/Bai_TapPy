@@ -1,4 +1,4 @@
-# Hệ thống quản lý nhân viên — Công ty ABC
+[# Hệ thống quản lý nhân viên — Công ty ABC
 
 Ứng dụng desktop quản lý nhân sự: nhân viên theo loại (Manager / Developer / Intern), lương, dự án, hiệu suất, **đền bù hợp đồng / đền bù dự án**, giảm lương và nghỉ việc có ghi log. Xây dựng bằng **Python 3.8+**, giao diện **Tkinter** (thư viện chuẩn), **OOP** (kế thừa, đa hình, ngoại lệ tùy chỉnh).
 
@@ -83,3 +83,4 @@ Công thức **đền bù** (hợp đồng / dự án) được mô tả trong `
 **Tác giả:** Trần Mạnh Quân  
 
 MIT License — tự do sử dụng và chỉnh sửa.
+](https://github.com/Tranmanhquan21/Bai_TapPy/tree/main/Tr%E1%BA%A7n%20M%E1%BA%A1nh%20Qu%C3%A2n/Ch%C6%B0%C6%A1ng%202/lab_chapter_1%2C2%2C3%2C9)
